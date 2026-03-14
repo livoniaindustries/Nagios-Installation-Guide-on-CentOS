@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagios Installation Guide on CentOS</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        code {
+            font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', Courier, monospace;
+            background-color: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            white-space: pre;
+        }
+        .note {
+            background-color: #fff5b1;
+            border-left: 4px solid #f9c513;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        .warning {
+            background-color: #ffeef0;
+            border-left: 4px solid #d73a49;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        .info-box {
+            background-color: #e6f3ff;
+            border-left: 4px solid #0366d6;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 6px 13px;
+        }
+        th {
+            background-color: #f6f8fa;
+        }
+        img {
+            max-width: 100%;
+            border: 1px solid #e1e4e8;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .step {
+            background-color: #f9f9f9;
+            border-left: 4px solid #28a745;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .screenshot-placeholder {
+            background-color: #f1f8ff;
+            border: 2px dashed #0366d6;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: #0366d6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nagios Installation Guide on CentOS</h1>
+
+    <div class="info-box">
+        <strong>📊 What is Nagios?</strong> Nagios is a utility designed to monitor network services such as HTTP, SMTP, POP3, ICMP, NNTP, monitor CPU usage, disk space and other hardware. Nagios can also send alerts in case of any problems with the above services or hardware.
+    </div>
+
+    <div class="note">
+        <strong>Prerequisite:</strong> To install Nagios, you need a clean server running CentOS.
+    </div>
+
+    <h2>Quick Installation</h2>
+    
+    <div class="step">
+        <h3>Step 1: Download and Run the Installation Script</h3>
+        <pre><code>curl https://assets.nagios.com/downloads/nagiosxi/install.sh | sh</code></pre>
+        
+        <p><strong>⚠️ Important:</strong> This script will install Nagios XI (the enterprise version) with all dependencies. The installation process may take 10-15 minutes depending on your server's performance and internet connection.</p>
+    </div>
+
+    <div class="step">
+        <h3>Step 2: Wait for Installation to Complete</h3>
+        <p>The script will automatically:</p>
+        <ul>
+            <li>Install required dependencies (PHP, Apache, MySQL, etc.)</li>
+            <li>Download and compile Nagios Core</li>
+            <li>Install Nagios XI components</li>
+            <li>Configure Apache virtual host</li>
+            <li>Set up database</li>
+            <li>Start necessary services</li>
+        </ul>
+    </div>
+
+    <h2>Post-Installation Configuration</h2>
+
+    <div class="step">
+        <h3>Step 3: Access the Web Interface</h3>
+        <p>After installation completes, open your web browser and navigate to:</p>
+        <pre><code>http://[your-server-ip]/nagiosxi/</code></pre>
+        
+        <div class="screenshot-placeholder">
+            🔧 Nagios Web Interface - Initial Setup Screen
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 4: Initial Configuration</h3>
+        <p>On the first access, you'll need to configure:</p>
+        <ul>
+            <li><strong>Nagios Web Interface URL:</strong> Confirm or change the URL</li>
+            <li><strong>Time Zone:</strong> Select your local time zone</li>
+            <li><strong>Program Language:</strong> Choose your preferred language</li>
+            <li><strong>Theme:</strong> Select the interface theme</li>
+            <li><strong>License Type:</strong> Accept the license agreement</li>
+        </ul>
+        
+        <div class="screenshot-placeholder">
+            ⚙️ Nagios Configuration - License and Settings
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 5: Create Admin Account</h3>
+        <p>You have two options:</p>
+        <ul>
+            <li><strong>Use ready-made credentials:</strong> The installer creates default admin credentials</li>
+            <li><strong>Create custom credentials:</strong> Set your own username and password</li>
+        </ul>
+        
+        <div class="screenshot-placeholder">
+            👤 Nagios - Admin Account Creation
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 6: Login and Start Monitoring</h3>
+        <p>After creating your account, log in to the Nagios web interface:</p>
+        
+        <div class="screenshot-placeholder">
+            📊 Nagios Dashboard - Main Monitoring Interface
+        </div>
+        
+        <div class="screenshot-placeholder">
+            📈 Nagios - Service Monitoring View
+        </div>
+    </div>
+
+    <h2>Default Credentials (if using automatic setup)</h2>
+    
+    <table>
+        <tr>
+            <th>Component</th>
+            <th>Username</th>
+            <th>Password</th>
+        </tr>
+        <tr>
+            <td>Nagios XI Admin</td>
+            <td>admin</td>
+            <td>admin</td>
+        </tr>
+        <tr>
+            <td>MySQL Database</td>
+            <td>root</td>
+            <td>nagiosxi</td>
+        </tr>
+    </table>
+
+    <div class="warning">
+        <strong>⚠️ Security Warning:</strong> Change default passwords immediately after first login!
+    </div>
+
+    <h2>Verifying Installation</h2>
+
+    <h3>Check Nagios Services</h3>
+    <pre><code># Check Nagios Core status
+sudo systemctl status nagios
+
+# Check Apache status
+sudo systemctl status httpd
+
+# Check MySQL/MariaDB status
+sudo systemctl status mariadb
+
+# Check Nagios XI components
+sudo /usr/local/nagiosxi/scripts/repair_databases.sh</code></pre>
+
+    <h3>Test Monitoring</h3>
+    <p>From the Nagios XI dashboard, you can:</p>
+    <ul>
+        <li>View host and service status</li>
+        <li>Check network services (HTTP, SMTP, POP3, etc.)</li>
+        <li>Monitor CPU usage and disk space</li>
+        <li>Configure alert notifications</li>
+        <li>Generate reports</li>
+    </ul>
+
+    <h2>Basic Configuration Examples</h2>
+
+    <h3>Add a Host to Monitor</h3>
+    <p>In Nagios XI, use the web interface to add hosts:</p>
+    <ol>
+        <li>Go to <strong>Configure → Core Config Manager</strong></li>
+        <li>Click on <strong>Hosts → Add New</strong></li>
+        <li>Enter host details (name, IP address, etc.)</li>
+        <li>Apply configuration</li>
+    </ol>
+
+    <h3>Configure Email Notifications</h3>
+    <pre><code># Edit Nagios contacts
+sudo nano /usr/local/nagios/etc/objects/contacts.cfg
+
+# Add or modify email address
+define contact {
+    contact_name            admin
+    use                     generic-contact
+    alias                   Nagios Admin
+    email                   your-email@example.com
+}
+
+# Restart Nagios
+sudo systemctl restart nagios</code></pre>
+
+    <h2>Troubleshooting</h2>
+
+    <table>
+        <tr>
+            <th>Issue</th>
+            <th>Solution</th>
+        </tr>
+        <tr>
+            <td>Cannot access web interface</td>
+            <td>Check if Apache is running: <code>sudo systemctl status httpd</code><br>Check firewall: <code>sudo firewall-cmd --list-all</code></td>
+        </tr>
+        <tr>
+            <td>Installation script fails</td>
+            <td>Check internet connection: <code>ping -c 4 google.com</code><br>Check disk space: <code>df -h</code><br>Check memory: <code>free -m</code></td>
+        </tr>
+        <tr>
+            <td>Nagios not monitoring hosts</td>
+            <td>Verify configuration: <code>/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg</code></td>
+        </tr>
+        <tr>
+            <td>Email notifications not working</td>
+            <td>Install mail client: <code>sudo yum install mailx</code><br>Check mail logs: <code>tail -f /var/log/maillog</code></td>
+        </tr>
+    </table>
+
+    <h2>Firewall Configuration</h2>
+    
+    <pre><code># Allow HTTP/HTTPS access to Nagios web interface
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+
+# If you need to allow NRPE (Nagios Remote Plugin Executor)
+sudo firewall-cmd --permanent --add-port=5666/tcp
+sudo firewall-cmd --reload</code></pre>
+
+    <h2>Useful Commands</h2>
+
+    <table>
+        <tr>
+            <th>Command</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl start nagios</code></td>
+            <td>Start Nagios Core</td>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl stop nagios</code></td>
+            <td>Stop Nagios Core</td>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl restart nagios</code></td>
+            <td>Restart Nagios Core</td>
+        </tr>
+        <tr>
+            <td><code>sudo systemctl status nagios</code></td>
+            <td>Check Nagios status</td>
+        </tr>
+        <tr>
+            <td><code>/usr/local/nagiosxi/scripts/reconfigure_nagios.sh</code></td>
+            <td>Reconfigure Nagios XI</td>
+        </tr>
+        <tr>
+            <td><code>/usr/local/nagiosxi/scripts/backup_xi.sh</code></td>
+            <td>Backup Nagios XI configuration</td>
+        </tr>
+        <tr>
+            <td><code>tail -f /usr/local/nagiosxi/var/cmdsubsys.log</code></td>
+            <td>View Nagios XI command logs</td>
+        </tr>
+    </table>
+
+    <h2>Uninstalling Nagios</h2>
+    
+    <div class="warning">
+        <strong>⚠️ Caution:</strong> This will completely remove Nagios and all its components.
+    </div>
+
+    <pre><code># Stop Nagios services
+sudo systemctl stop nagios
+sudo systemctl stop httpd
+sudo systemctl stop mariadb
+
+# Remove Nagios XI (if using the enterprise version)
+sudo /usr/local/nagiosxi/scripts/uninstall.sh
+
+# Or remove Nagios Core manually
+sudo yum remove nagios nagios-plugins
+sudo rm -rf /usr/local/nagios
+sudo rm -rf /usr/local/nagiosxi
+sudo rm -rf /var/log/nagios
+sudo rm -rf /etc/nagios</code></pre>
+
+    <h2>Next Steps</h2>
+    
+    <ul>
+        <li>Explore the Nagios XI web interface and familiarize yourself with the dashboard</li>
+        <li>Add servers and services to monitor</li>
+        <li>Configure notification alerts (email, SMS, Slack, etc.)</li>
+        <li>Set up monitoring for specific applications (web servers, databases, etc.)</li>
+        <li>Create custom service checks and plugins</li>
+    </ul>
+
+</body>
+</html>
